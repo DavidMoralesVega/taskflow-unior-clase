@@ -1,12 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import {
-  IsBoolean,
+  IsEnum,
   IsOptional,
   IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { TaskStatus } from '../../generated/prisma/client.js';
 
 export class CreateTaskDto {
   @ApiProperty({
@@ -34,7 +35,14 @@ export class CreateTaskDto {
   @IsOptional()
   description: string;
 
-  @IsBoolean()
+  @ApiPropertyOptional({
+    enum: TaskStatus,
+    example: TaskStatus.TODO,
+    description: 'Columna del tablero: TODO, IN_PROGRESS o DONE.',
+  })
+  @IsEnum(TaskStatus, {
+    message: 'El estado debe ser TODO, IN_PROGRESS o DONE.',
+  })
   @IsOptional()
-  completed: boolean;
+  status?: TaskStatus;
 }

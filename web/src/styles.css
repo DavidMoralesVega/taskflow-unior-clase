@@ -24,8 +24,53 @@ form {
   color: var(--mat-sys-error);
 }
 
-.task-list {
+
+.board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container);
+}
+
+.column h2 {
+  margin: 0;
+  font: var(--mat-sys-title-medium);
+}
+
+.empty {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.cdk-drag {
+  cursor: grab;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+mat-dialog-content mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
 }

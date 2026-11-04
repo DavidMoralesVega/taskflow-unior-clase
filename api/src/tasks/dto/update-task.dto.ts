@@ -1,10 +1,11 @@
 import {
-  IsBoolean,
+  IsEnum,
   IsOptional,
   IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { TaskStatus } from '../../generated/prisma/client.js';
 
 export class UpdateTaskDto {
   @IsOptional()
@@ -18,6 +19,8 @@ export class UpdateTaskDto {
   description?: string;
 
   @IsOptional()
-  @IsBoolean()
-  completed?: boolean;
+  @IsEnum(TaskStatus, {
+    message: 'El estado debe ser TODO, IN_PROGRESS o DONE.',
+  })
+  status?: TaskStatus;
 }

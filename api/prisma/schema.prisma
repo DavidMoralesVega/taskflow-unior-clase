@@ -12,6 +12,12 @@ datasource db {
   provider = "postgresql"
 }
 
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
 enum UserRole {
   USER
   ADMIN
@@ -47,7 +53,7 @@ model Task {
   id          Int      @id @default(autoincrement())
   title       String
   description String?
-  completed   Boolean  @default(false)
+  status      TaskStatus @default(TODO)
   projectId   Int?
   assigneeId  Int?
   createdAt   DateTime @default(now())

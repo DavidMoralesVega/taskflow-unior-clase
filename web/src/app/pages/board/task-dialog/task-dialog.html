@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ task ? 'Editar tarea' : 'Nueva tarea' }}</h2>
+
+<form [formRoot]="taskForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Título</mat-label>
+      <input matInput [formField]="taskForm.title" />
+      @if (taskForm.title().touched() && taskForm.title().invalid()) {
+        <mat-error>{{ taskForm.title().errors()[0].message }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="3" [formField]="taskForm.description"></textarea>
+    </mat-form-field>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button matButton type="button" mat-dialog-close>Cancelar</button>
+    <button matButton="filled" type="submit" [disabled]="taskForm().submitting()">Guardar</button>
+  </mat-dialog-actions>
+</form>

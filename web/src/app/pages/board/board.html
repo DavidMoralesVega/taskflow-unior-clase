@@ -1,4 +1,10 @@
-<h1>Tareas</h1>
+<div class="board-header">
+  <h1>Tablero</h1>
+  <button matButton="filled" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+    Nueva tarea
+  </button>
+</div>
 
 @if (tasks.isLoading()) {
   <mat-progress-bar mode="indeterminate" />
@@ -8,20 +14,27 @@
   <p class="error">{{ errorMessage(tasks.error()) }}</p>
 }
 
-@if (tasks.hasValue()) {
-  <div class="task-list">
-    @for (task of tasks.value(); track task.id) {
-      <mat-card appearance="outlined">
-        <mat-card-header>
-          <mat-card-title>{{ task.title }}</mat-card-title>
-          <mat-card-subtitle>{{ task.completed ? 'Terminada' : 'Pendiente' }}</mat-card-subtitle>
-        </mat-card-header>
-        @if (task.description) {
-          <mat-card-content>{{ task.description }}</mat-card-content>
-        }
-      </mat-card>
-    } @empty {
-      <p>Todavía no hay tareas.</p>
-    }
-  </div>
-}
+<div class="board" cdkDropListGroup>
+  @for (column of columns; track column.status) {
+    <section class="column" cdkDropList [cdkDropListData]="column.status" (cdkDropListDropped)="move($event)">
+      <h2>{{ column.title }} ({{ byStatus()[column.status].length }})</h2>
+
+      @for (task of byStatus()[column.status]; track task.id) {
+        <mat-card appearance="outlined" cdkDrag [cdkDragData]="task">
+          <mat-card-header>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+          </mat-card-header>
+          @if (task.description) {
+            <mat-card-content>{{ task.description }}</mat-card-content>
+          }
+          <mat-card-actions align="end">
+            <button matIconButton aria-label="Editar" (click)="openDialog(task)"><mat-icon>edit</mat-icon></button>
+            <button matIconButton aria-label="Eliminar" (click)="remove(task)"><mat-icon>delete</mat-icon></button>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        <p class="empty">Sin tareas</p>
+      }
+    </section>
+  }
+</div>

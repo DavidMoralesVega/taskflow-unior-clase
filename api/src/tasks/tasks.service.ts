@@ -26,7 +26,7 @@ export class TasksService {
     return await this.tasksRepository.create({
       title: data.title,
       description: data.description,
-      completed: data.completed,
+      status: data.status,
     });
   }
 
@@ -40,8 +40,8 @@ export class TasksService {
       ...(data.description !== undefined && {
         description: data.description,
       }),
-      ...(data.completed !== undefined && {
-        completed: data.completed,
+      ...(data.status !== undefined && {
+        status: data.status,
       }),
     });
   }

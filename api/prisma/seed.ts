@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../src/generated/prisma/client.js';
+import { PrismaClient, TaskStatus } from '../src/generated/prisma/client.js';
 
 async function main() {
   const connectionString = process.env.DATABASE_URL;
@@ -21,17 +21,17 @@ async function main() {
       {
         title: 'Preparar documentación',
         description: 'Documentar los endpoints de TaskFlow',
-        completed: false,
+        status: TaskStatus.TODO,
       },
       {
         title: 'Implementar autenticación',
         description: 'Preparar la autenticación de usuarios',
-        completed: false,
+        status: TaskStatus.IN_PROGRESS,
       },
       {
         title: 'Escribir pruebas unitarias',
         description: 'Probar los servicios de la API',
-        completed: true,
+        status: TaskStatus.DONE,
       },
     ];
 
