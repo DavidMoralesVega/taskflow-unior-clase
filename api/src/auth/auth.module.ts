@@ -20,7 +20,8 @@ import { UsersModule } from '../users/users.module.js';
       useFactory: (config: ConfigService) => ({
         secret: config.getOrThrow<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: '15m',
+          // The duration comes from the .env (JWT_EXPIRES_IN); 15 minutes if it is missing.
+          expiresIn: config.get('JWT_EXPIRES_IN', '15m'),
           algorithm: 'HS256',
         },
       }),
