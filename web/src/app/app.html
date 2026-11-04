@@ -1,0 +1,11 @@
+<mat-toolbar>
+  <span>TaskFlow</span>
+  <span class="spacer"></span>
+  @if (auth.isLoggedIn()) {
+    <button matButton (click)="auth.logout()">Cerrar sesión</button>
+  }
+</mat-toolbar>
+
+<main>
+  <router-outlet />
+</main>

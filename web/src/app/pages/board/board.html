@@ -1,0 +1,27 @@
+<h1>Tareas</h1>
+
+@if (tasks.isLoading()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (tasks.error()) {
+  <p class="error">{{ errorMessage(tasks.error()) }}</p>
+}
+
+@if (tasks.hasValue()) {
+  <div class="task-list">
+    @for (task of tasks.value(); track task.id) {
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-subtitle>{{ task.completed ? 'Terminada' : 'Pendiente' }}</mat-card-subtitle>
+        </mat-card-header>
+        @if (task.description) {
+          <mat-card-content>{{ task.description }}</mat-card-content>
+        }
+      </mat-card>
+    } @empty {
+      <p>Todavía no hay tareas.</p>
+    }
+  </div>
+}

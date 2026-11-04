@@ -1,0 +1,31 @@
+/* Global styles: the whole app uses only this file (no CSS per component). */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.narrow {
+  max-width: 420px;
+  margin: 40px auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error {
+  color: var(--mat-sys-error);
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}

@@ -1,0 +1,43 @@
+<mat-card class="narrow">
+  <mat-card-header>
+    <mat-card-title>Crear una cuenta</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formRoot]="registerForm">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput [formField]="registerForm.name" />
+        @if (registerForm.name().touched() && registerForm.name().invalid()) {
+          <mat-error>{{ registerForm.name().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" [formField]="registerForm.email" />
+        @if (registerForm.email().touched() && registerForm.email().invalid()) {
+          <mat-error>{{ registerForm.email().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [formField]="registerForm.password" />
+        @if (registerForm.password().touched() && registerForm.password().invalid()) {
+          <mat-error>{{ registerForm.password().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <button matButton="filled" type="submit" [disabled]="registerForm().submitting()">Crear cuenta</button>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a matButton routerLink="/login">Ya tengo una cuenta</a>
+  </mat-card-actions>
+</mat-card>

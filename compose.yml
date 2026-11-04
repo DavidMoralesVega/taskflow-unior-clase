@@ -1,0 +1,16 @@
+# Base de datos para desarrollo: PostgreSQL en un contenedor.
+# La API y el front corren en tu máquina (npm run start:dev / npm start).
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: taskflow
+      POSTGRES_USER: taskflow
+      POSTGRES_PASSWORD: taskflow123
+    ports:
+      - "5433:5432"   # 5433 afuera, para no chocar con un PostgreSQL instalado
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

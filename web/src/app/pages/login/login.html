@@ -1,0 +1,35 @@
+<mat-card class="narrow">
+  <mat-card-header>
+    <mat-card-title>Iniciar sesión</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formRoot]="loginForm">
+      <mat-form-field>
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" [formField]="loginForm.email" />
+        @if (loginForm.email().touched() && loginForm.email().invalid()) {
+          <mat-error>{{ loginForm.email().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [formField]="loginForm.password" />
+        @if (loginForm.password().touched() && loginForm.password().invalid()) {
+          <mat-error>{{ loginForm.password().errors()[0].message }}</mat-error>
+        }
+      </mat-form-field>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <button matButton="filled" type="submit" [disabled]="loginForm().submitting()">Entrar</button>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a matButton routerLink="/register">Crear una cuenta</a>
+  </mat-card-actions>
+</mat-card>
